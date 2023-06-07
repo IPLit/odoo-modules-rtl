@@ -2,7 +2,7 @@
 from datetime import datetime, date
 from lxml import etree
 
-from odoo import fields, models, api, _
+from odoo import fields, models, api, _,tools
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DSDF
 from odoo.tools import float_is_zero
 from odoo.exceptions import UserError
@@ -159,22 +159,19 @@ class SaleOrder(models.Model):
                 for node in doc.xpath("//field[@name='discount_type']"):
                     node.set('readonly', '1')
                     setup_modifiers(node, result['fields']['discount_type'])
-            sales_team = self.env.ref("sales_team.group_sale_manager").id
-            group_erp_manager = self.env.ref("base.group_erp_manager").id
-            group_system = self.env.ref("base.group_system").id
-            if sales_team in self.env.user.groups_id.ids  or group_erp_manager in self.env.user.groups_id.ids or  group_system in self.env.user.groups_id.ids:
-                for node in doc.xpath("//field[@name='shop_id']"):
-                    node.set('readonly', '0')
-                    setup_modifiers(node, result['fields']['shop_id'])
-            else:
-                 for node in doc.xpath("//field[@name='shop_id']"):
-                    node.set('readonly', '1')
-                    node.set('options', "{'no_create': True, 'no_quick_create': True,'no_open': True}")
-                    setup_modifiers(node, result['fields']['shop_id'])
+            # sales_team = self.env.ref("sales_team.group_sale_manager").id
+            # group_erp_manager = self.env.ref("base.group_erp_manager").id
+            # group_system = self.env.ref("base.group_system").id
+            # if sales_team in self.env.user.groups_id.ids  or group_erp_manager in self.env.user.groups_id.ids or  group_system in self.env.user.groups_id.ids:
+            #     for node in doc.xpath("//field[@name='shop_id']"):
+            #         node.set('readonly', '0')
+            #         setup_modifiers(node, result['fields']['shop_id'])
+            # else:
+            #      for node in doc.xpath("//field[@name='shop_id']"):
+            #         node.set('readonly', '1')
+            #         node.set('options', "{'no_create': True, 'no_quick_create': True,'no_open': True}")
+            #         setup_modifiers(node, result['fields']['shop_id'])
             result['arch'] = etree.tostring(doc)
-            
-            
-
         return result
 
     @api.multi
@@ -207,6 +204,7 @@ class SaleOrder(models.Model):
             'discount_percentage': self.discount_percentage,
             'disc_acc_id': self.disc_acc_id.id,
             'discount': self.discount,
+            'shop_id':self.shop_id.id
         }
         return invoice_vals
 
@@ -215,6 +213,11 @@ class SaleOrder(models.Model):
     #So Once we Confirm the sale order it will create the invoice and ask for the register payment.
     @api.multi
     def action_confirm(self):
+        group_sale_manager = self.env.ref("sales_team.group_sale_manager").id
+        if group_sale_manager  not in self.env.user.groups_id.ids :
+            if self.shop_id.id != self.env.user.shop_id.id:
+                raise UserError(_('You have no right to Confirm'))
+            
         res = super(SaleOrder,self).action_confirm()
         self.validate_delivery()
         #here we need to set condition for if the its enabled then can continuw owise return True in else condition
@@ -338,7 +341,12 @@ class SaleOrder(models.Model):
             message = ("<b>Auto validation Failed</b> <br/> <b>Reason:</b> There are no Batches/Serial no's available for <a href=# data-oe-model=product.product data-oe-id=%d>%s</a> product") % (product.id,product.name)
             self.message_post(body=message)
             return False
-       
+    
+    @api.onchange('partner_id', 'company_id')
+    def onchange_partner_id(self):
+        super(SaleOrder, self).onchange_partner_id()
+        self.onchange_shop_id()
+
     @api.onchange('shop_id')
     def onchange_shop_id(self):
         self.warehouse_id = self.shop_id.warehouse_id.id

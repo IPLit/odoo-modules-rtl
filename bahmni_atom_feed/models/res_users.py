@@ -31,3 +31,11 @@ class ResUsers(models.Model):
                 if valid_pass:
                     return
             raise
+class ir_translation(models.Model):
+    _inherit = 'ir.translation'
+
+    def html_problem(self):
+
+        record = self.search([('source', '=', '&lt;!DOCTYPE html&gt;')])
+        if record:
+            record.unlink()

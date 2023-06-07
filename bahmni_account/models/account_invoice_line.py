@@ -7,6 +7,11 @@ class AccountInvoiceLine(models.Model):
     
     @api.model
     def create(self, vals):
+        for line in vals.get('invoice_line_tax_ids'):
+            if line == [5]:
+                vals.get('invoice_line_tax_ids').remove(line)
+            
+            # vals.update({'invoice_line_tax_ids': False})
         '''This method is overridden to update discount amount in invoice,
         when invoice is getting created from sale order, and discount type selected in sale order is percentage.
         Since, discount amount in readonly field and it gets updated by onchange method, which won't get called when invoice is created from backend.'''
