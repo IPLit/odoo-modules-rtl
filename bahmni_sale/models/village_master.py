@@ -106,3 +106,13 @@ class VillageVillage(models.Model):
             self.country_id = self.state_id.country_id.id
             domain = [('id', '=', self.state_id.country_id.id)]
         return {'domain': {'country_id': domain}}
+
+
+class CountryState(models.Model):
+    _inherit = 'res.country.state'
+
+    @api.multi
+    def name_get(self):
+        res = super(CountryState, self).name_get()
+        print("...........................................",res)
+        return res

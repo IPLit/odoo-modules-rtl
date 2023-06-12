@@ -159,18 +159,6 @@ class SaleOrder(models.Model):
                 for node in doc.xpath("//field[@name='discount_type']"):
                     node.set('readonly', '1')
                     setup_modifiers(node, result['fields']['discount_type'])
-            # sales_team = self.env.ref("sales_team.group_sale_manager").id
-            # group_erp_manager = self.env.ref("base.group_erp_manager").id
-            # group_system = self.env.ref("base.group_system").id
-            # if sales_team in self.env.user.groups_id.ids  or group_erp_manager in self.env.user.groups_id.ids or  group_system in self.env.user.groups_id.ids:
-            #     for node in doc.xpath("//field[@name='shop_id']"):
-            #         node.set('readonly', '0')
-            #         setup_modifiers(node, result['fields']['shop_id'])
-            # else:
-            #      for node in doc.xpath("//field[@name='shop_id']"):
-            #         node.set('readonly', '1')
-            #         node.set('options', "{'no_create': True, 'no_quick_create': True,'no_open': True}")
-            #         setup_modifiers(node, result['fields']['shop_id'])
             result['arch'] = etree.tostring(doc)
         return result
 

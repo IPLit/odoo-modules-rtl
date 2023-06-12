@@ -186,6 +186,8 @@ class AtomEventWorker(models.Model):
         address_data = vals.get('preferredAddress')
         # get validated address details
         address_details = self._get_address_details(json.loads(address_data))
+        address_city=json.loads(address_data)
+        res.update({'city':address_city.get('cityVillage',False)})
         # update address details
         res.update(address_details)
         # update other details : for now there is only scope of updating contact.
