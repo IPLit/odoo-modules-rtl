@@ -28,5 +28,29 @@
 		</xpath>
 		</field>
 	</record>
+
+	<record model="ir.ui.view" id="stock.search_product_lot_filter">
+    <field name="name">Production Lots Filter</field>
+    <field name="model">stock.production.lot</field>
+    <field name="arch" type="xml">
+        <search string="Product Lots Filter">
+            <field name="name" string="Product Lots" filter_domain="['|', ('name','ilike',self), ('ref','ilike',self)]"/>
+            <field name="product_id"/>
+            <group expand="0" string="Group By">
+                <filter string="Product" domain="[]" context="{'group_by':'product_id'}"/>
+            </group>
+            <filter string="Batch expiring this week" name="expire_this_week"
+                domain="['&amp;', ('life_date', '&gt;=', (context_today() + relativedelta(days=0)).strftime('%Y-%m-%d')),
+                ('life_date', '&lt;=', (context_today() + relativedelta(days=6)).strftime('%Y-%m-%d'))]"/>
+            <filter string="Batch expiring this month" name="expire_this_month"
+                domain="['&amp;', ('life_date', '&gt;=', (context_today() + relativedelta(days=0)).strftime('%Y-%m-%d')),
+                ('life_date', '&lt;=', (context_today() + relativedelta(days=29)).strftime('%Y-%m-%d'))]"/>
+            <filter string="Batch expiring this year" name="expire_this_year"
+                domain="['&amp;', ('life_date', '&gt;=', (context_today() + relativedelta(days=0)).strftime('%Y-%m-%d')),
+                ('life_date', '&lt;=', (context_today() + relativedelta(days=365)).strftime('%Y-%m-%d'))]"/>
+        </search>
+    </field>
+</record>
+
 	
 </odoo>
