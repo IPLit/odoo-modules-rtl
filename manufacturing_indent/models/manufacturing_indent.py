@@ -25,6 +25,8 @@ from odoo import models, fields, api, exceptions, _
 from odoo.exceptions import Warning
 from odoo.exceptions import UserError
 import odoo.addons.decimal_precision as dp
+from lxml import etree
+from odoo.osv.orm import setup_modifiers
 
 
 class MrpProduction(models.Model):
@@ -156,6 +158,21 @@ class MrpIndent(models.Model):
 
     @api.one
     def mrp_indent_inprogress(self):
+        group_id = self.env.ref("base.group_system").id 
+        print("**********",self.env.ref("base.group_system").id )
+        print("--------------",self.env.user.groups_id.ids)
+        if not  group_id in self.env.user.groups_id.ids:
+            if self.user_has_groups('manufacturing_indent.group_location_manager'):
+                flg = False
+                for item in self.product_lines.mapped('location_dest_id').ids:
+                    if not  item in self.env.user.stock_location_ids.ids:
+                        flg = True
+                        break
+                if flg:
+                    raise UserError(_('You cannot Approve.......'))
+            else:
+                
+                raise UserError(_('You cannot Approve.......'))
         todo = []
         for o in self:
             if not any(line for line in o.product_lines):
@@ -264,6 +281,21 @@ class MrpIndent(models.Model):
 
     @api.multi
     def indent_transfer_move_confirm(self):
+        group_id = self.env.ref("base.group_system").id 
+        print("**********",self.env.ref("base.group_system").id )
+        print("--------------",self.env.user.groups_id.ids)
+
+        if not  group_id in self.env.user.groups_id.ids:
+            if self.user_has_groups('manufacturing_indent.group_location_manager'):
+                flg = False
+                for item in self.product_lines.mapped('location_id').ids:
+                    if not  item in self.env.user.stock_location_ids.ids:
+                        flg = True
+                        break
+                if flg:
+                    raise UserError(_('You cannot Approve.......'))
+            else:
+                raise UserError(_('You cannot Approve.......'))
         if self.move_lines:
             for line in self.move_lines:
                 if line.state == 'cancel':

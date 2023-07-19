@@ -20,4 +20,4 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 ###################################################################################
-from . import hr_employee_shift, hr_employee_contract, hr_generate_shift, hr_shift_payroll
+from . import hr_employee_shift, hr_employee_contract, hr_generate_shift, hr_shift_payroll,hr_holiday

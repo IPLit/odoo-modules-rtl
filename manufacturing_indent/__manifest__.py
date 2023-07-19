@@ -33,6 +33,7 @@
     'license': 'LGPL-3',
     'data': [
         'security/ir.model.access.csv',
+        'security/security.xml',
         'views/mrp_production_views.xml',
         'views/manufacturing_indent_menu.xml',
         'views/stock_indent_menu.xml',

@@ -30,7 +30,7 @@
     'company': 'Cybrosys Techno Solutions',
     'maintainer': 'Cybrosys Techno Solutions',
     'website': "https://www.openhrms.com",
-    'depends': ['hr', 'hr_payroll'],
+    'depends': ['base','hr', 'hr_payroll','hr_holidays'],
     'data': [
         'security/ir.model.access.csv',
         'security/hr_employee_shift_security.xml',
@@ -38,6 +38,7 @@
         'views/hr_employee_contract_view.xml',
         'views/hr_generate_shift_view.xml',
         'views/templates.xml',
+
     ],
     'images': ["static/description/banner.jpg"],
     'license': "AGPL-3",

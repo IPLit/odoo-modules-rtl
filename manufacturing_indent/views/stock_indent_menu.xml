@@ -8,7 +8,7 @@
 			<field name="arch" type="xml">
 				<form string="Indents" create="false">
 					<header>
-						<button name="action_assign" string="Approve" type="object"
+						<!-- <button name="action_assign" string="Approve" type="object"
 							class="oe_highlight" groups="stock.group_stock_manager"
 								attrs="{'invisible': ['|',('item_for', '!=', 'mrp'),('state', '!=', 'waiting_approval')]}"/>
 						<button name="mrp_indent_inprogress" string="Approve" type="object"
@@ -19,7 +19,23 @@
 						<button name="indent_transfer" string="Ready To Transfer" states="inprogress" type="object"
 								class="oe_highlight" groups="stock.group_stock_manager"/>
 						<button name="indent_transfer_move_confirm" string="Confirm Transfer" states="move_created" type="object"
-								class="oe_highlight" groups="stock.group_stock_manager"/>
+								class="oe_highlight" groups="stock.group_stock_manager"/> -->
+
+						<button name="mrp_indent_confirm" string="Confirm" states="draft" type="object"
+							class="oe_highlight"/>
+						<button name="action_assign" string="Approve" type="object"
+							class="oe_highlight" groups="stock.group_stock_user,base.group_system"
+								attrs="{'invisible': ['|',('item_for', '!=', 'mrp'),('state', '!=', 'waiting_approval')]}"/>
+						<button name="mrp_indent_inprogress" string="Approve" type="object"
+							class="oe_highlight" groups="manufacturing_indent.group_location_manager,base.group_system"
+								attrs="{'invisible': ['|',('item_for', '=', 'mrp'),('state', '!=', 'waiting_approval')]}"/>
+						<button name="indent_reject" string="Reject" states="waiting_approval,inprogress,move_created" type="object"
+							groups="manufacturing_indent.group_hospital_manager,base.group_system,manufacturing_indent.group_location_manager"/>
+						<button name="indent_transfer" string="Ready To Transfer" states="inprogress" type="object"
+								class="oe_highlight" groups="manufacturing_indent.group_hospital_manager,base.group_system"/>
+						<button name="indent_transfer_move_confirm" string="Confirm Transfer" states="move_created" type="object"
+								class="oe_highlight" groups="manufacturing_indent.group_location_manager,base.group_system"/>
+								
 						<field name="state" widget="statusbar"
 							statusbar_visible="draft,waiting_approval,inprogress,move_created,done"
 							statusbar_colors='{"reject":"red"}' />

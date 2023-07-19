@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="stock_restrictions_group" model="res.groups">
+        <!-- <record id="stock_restrictions_group" model="res.groups">
             <field name="name">Warehouse Restrictions</field>
             <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
             <field name="category_id" ref="base.module_category_theme_hidden"/>
@@ -39,7 +39,8 @@
               ('location_id','in', user.stock_location_ids.ids),
               ]
             </field>
-        </record>
+            
+        </record> -->
 
     </data>
 </odoo>

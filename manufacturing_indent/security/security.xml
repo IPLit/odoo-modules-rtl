@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+   <record id="group_location_manager" model="res.groups">
+        <field name="name">Location Manager</field>
+    </record>
+
+       <record id="group_hospital_manager" model="res.groups">
+        <field name="name">Hospital Manager</field>
+    </record>
+
+    </data>
+</odoo>
