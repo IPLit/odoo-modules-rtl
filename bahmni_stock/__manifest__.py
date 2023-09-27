@@ -21,6 +21,8 @@ Bahmni Purchase
              'report/stock_report_prod_by_last_moved.xml',
              'report/account_payment_report.xml',
              'views/bahmni_stock_report_mapping.xml',
+             'views/stock_scrap.xml',
+             'views/stock_inventory.xml',
              'security/ir.model.access.csv',
              ],
     'demo': [],

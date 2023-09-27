@@ -1,0 +1,58 @@
+
+<odoo>
+    <record id="view_stock_scrap_form_inherit" model="ir.ui.view">
+    <field name="name">stock.scrap.form.inherit</field>
+    <field name="model">stock.scrap</field>
+    <field name="inherit_id" ref="stock.stock_scrap_form_view"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='state']" position="replace">
+                <field name="state" widget="statusbar"/>
+                <button string="Approve" name="button_approve" type="object" class="oe_highlight" attrs="{'invisible':[('state','!=','to_approve')]}" groups="manufacturing_indent.group_hospital_manager,base.group_system"/>
+                <button string="Reject" name="button_reject" type="object" class="oe_highlight" attrs="{'invisible':[('state','!=','to_approve')]}" groups="manufacturing_indent.group_hospital_manager,base.group_system"/>
+<!--                <field name="check_is_admin"/>-->
+        </xpath>
+
+        <xpath expr="//field[@name='product_id']" position="attributes">
+            <attribute name="attrs">{'readonly':[('state','in',['to_approve','approved','rejected'])]}</attribute>
+        </xpath>
+        <xpath expr="//field[@name='scrap_qty']" position="attributes">
+            <attribute name="attrs">{'readonly':[('state','in',['to_approve','approved','rejected'])]}</attribute>
+        </xpath>
+        <xpath expr="//field[@name='lot_id']" position="attributes">
+            <attribute name="attrs">{'readonly':[('state','in',['to_approve','approved','rejected'])]}</attribute>
+        </xpath>
+        <xpath expr="//field[@name='location_id']" position="attributes">
+            <attribute name="attrs">{'readonly':[('state','in',['to_approve','approved','rejected'])]}</attribute>
+<!--            <attribute name="groups">manufacturing_indent.group_hospital_manager,base.group_system</attribute>-->
+        </xpath>
+<!--         <xpath expr="//field[@name='scrap_location_id']" position="before">-->
+<!--            <field name="location_id1" string="Location" options="{'no_quick_create': True, 'no_create_edit' : True}" attrs="{'invisible':[('check_is_admin','=',True)]}"/>-->
+<!--         </xpath>-->
+        <xpath expr="//field[@name='scrap_location_id']" position="attributes">
+            <attribute name="attrs">{'readonly':[('state','in',['to_approve','approved','rejected'])]}</attribute>
+        </xpath>
+        <xpath expr="//field[@name='date_expected']" position="attributes">
+            <attribute name="attrs">{'readonly':[('state','in',['to_approve','approved','rejected'])]}</attribute>
+        </xpath>
+        <xpath expr="//field[@name='origin']" position="attributes">
+            <attribute name="attrs">{'readonly':[('state','in',['to_approve','approved','rejected'])]}</attribute>
+        </xpath>
+        <xpath expr="//field[@name='product_uom_id']" position="attributes">
+            <attribute name="attrs">{'readonly':[('state','in',['to_approve','approved','rejected'])]}</attribute>
+        </xpath>
+    </field>
+</record>
+    <record id="view_stock_scrap_tree_inherit" model="ir.ui.view">
+    <field name="name">stock.scrap.tree.inherit</field>
+    <field name="model">stock.scrap</field>
+    <field name="inherit_id" ref="stock.stock_scrap_tree_view"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='state']" position="replace">
+                <field name="state"/>
+        </xpath>
+    </field>
+</record>
+
+
+
+</odoo>

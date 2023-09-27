@@ -37,7 +37,7 @@ class IrQWeb(models.AbstractModel, QWeb):
         if 'lang_direction' in values:
             return super(IrQWeb, self).render(id_or_xml_id, values=values, **options)
         Language = self.env['res.lang']
-        lang = context.get('lang', 'en_US')
+        lang = context.get('lang', 'ar_SY')
         directions = Language.get_languages_dir()
         direction = directions.get(lang, 'ltr')
         values['lang_direction'] = direction
