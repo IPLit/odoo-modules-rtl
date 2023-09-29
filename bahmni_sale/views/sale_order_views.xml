@@ -299,6 +299,18 @@ as discount fields are readonly in case of chargable amount is editable-->
 		</field>
 	</record>
 
+	<record id="inherit_sale_order_form_view_str_invisible" model="ir.ui.view">
+		<field name="name">sale.order.form</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_order_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="/form/sheet/notebook/page[2]" position="attributes">
+				<attribute name="groups">base.group_no_one</attribute>
+
+			</xpath>
+		</field>
+	</record>
+
 	<menuitem action="action_shop_form" id="menu_action_shop_form" parent="sales_team.menu_sale_config" sequence="35"/>
 
 </odoo>
