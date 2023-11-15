@@ -4,3 +4,4 @@ access_village_village,access_village_village,model_village_village,,1,1,1,1
 access_state_district,access_state_district,model_state_district,,1,1,1,1
 access_district_tehsil,access_district_tehsil,model_district_tehsil,,1,1,1,1
 access_res_partner_attributes,access_res_partner_attributes,model_res_partner_attributes,base.group_user,1,1,1,1
+access_transfer_sale_quotation_wiz,access_transfer_sale_quotation_wiz,model_transfer_sale_quotation_wiz,base.group_user,1,1,1,1

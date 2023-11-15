@@ -16,6 +16,16 @@ _logger = logging.getLogger(__name__)
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
+    def transfer_sq(self):
+        return {
+            'name': 'Transfer Sale Quotation',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'transfer.sale.quotation.wiz',
+            'view_id': self.env.ref('bahmni_sale.sale_order_transfer_sq_wizard_view').id,
+            'type': 'ir.actions.act_window',
+            'target': 'new',
+        }
     @api.depends('order_line.price_total', 'discount', 'chargeable_amount')
     def _amount_all(self):
         """

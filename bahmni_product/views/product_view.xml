@@ -102,7 +102,17 @@ actual_stock for a product and quants related to it.-->
 		</field>
 	</record>
 	
+    <record id="inherit_product_template_only_form_view_btn_only_visible_in_debugmode_InventoryMenu" model="ir.ui.view">
+		<field name="name">product_product_procurement_invisible_InInventoryTab</field>
+		<field name="model">product.product</field>
+		<field name="inherit_id" ref="stock.product_form_view_procurement_button"/>
+		<field name="arch" type="xml">
+			<xpath expr="//button[@name='272']" position="attributes">
+				<attribute name="groups">base.group_no_one</attribute>
 
+			</xpath>
+		</field>
+	</record>
 
 	
 	
