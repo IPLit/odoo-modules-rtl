@@ -301,9 +301,7 @@ as discount fields are readonly in case of chargable amount is editable-->
 		</p>
 		</field>
 	</record>
-
-
-    <record id="inherit_sale_order_form_view_str_invisible" model="ir.ui.view">
+     <record id="inherit_sale_order_form_view_str_invisible" model="ir.ui.view">
 		<field name="name">sale.order.form</field>
 		<field name="model">sale.order</field>
 		<field name="inherit_id" ref="sale.view_order_form"/>

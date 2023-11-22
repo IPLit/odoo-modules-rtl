@@ -6,5 +6,5 @@ class SaleAdvancePaymentInv(models.TransientModel):
     shop_id = fields.Many2one('sale.shop')
     def transfer(self):
         so = self.env['sale.order'].browse(self.env.context.get('active_id'))
-        so.write({'shop_id': self.shop_id.id})
+        so.write({'shop_id': self.shop_id.id, 'location_id': self.shop_id.location_id.id})
 
