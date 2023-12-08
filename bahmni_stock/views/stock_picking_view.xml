@@ -20,4 +20,16 @@
 	</record>
 	<delete id="stock.all_picking" model="ir.ui.menu"/>
 	<delete id="stock.stock_picking_type_menu" model="ir.ui.menu"/>
+
+	<record id="inherit_stock_picking_form_validate_btn_visible_for billing_user" model="ir.ui.view">
+		<field name="name">form.stock.visible.validate.key</field>
+		<field name="model">stock.picking</field>
+		<field name="inherit_id" ref="stock.view_picking_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//button[@name='do_new_transfer']" position="attributes">
+				<attribute name="groups">stock.group_stock_user, account.group_account_invoice</attribute>
+
+			</xpath>
+		</field>
+	</record>
 </odoo>
