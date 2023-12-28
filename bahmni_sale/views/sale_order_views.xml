@@ -23,7 +23,7 @@
 				<field name="partner_uuid" invisible="1"/>
 			</xpath>
 			<xpath expr="//field[@name='payment_term_id']" position="after">
-				<field name="shop_id"/>
+				<field name="shop_id" attrs="{'readonly': [('state', '!=', 'draft')]}" options="{'no_open':True}"/>
 			</xpath>
 			<xpath expr="//notebook/page[1]/group" position="replace">
 				<div class="col-xs-5 pull-right text-right" style="padding-right:0px">
@@ -312,6 +312,8 @@ as discount fields are readonly in case of chargable amount is editable-->
 			</xpath>
 		</field>
 	</record>
+
+
 	<menuitem action="action_shop_form" id="menu_action_shop_form" parent="sales_team.menu_sale_config" sequence="35"/>
 
 </odoo>
