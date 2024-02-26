@@ -13,6 +13,7 @@ Bahmni Account
     'images': [],
     'depends': ['account', 'account_voucher', 'web_readonly_bypass'],
     'data': [
+        'security/security_group.xml',
              'views/bahmni_account.xml',
              'views/account_invoice_view.xml',
              'views/account_config_settings.xml',

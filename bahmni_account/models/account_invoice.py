@@ -15,6 +15,16 @@ TYPE2REFUND = {
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
+    @api.multi
+    def write(self, vals):
+        if self.env.user.has_group('account.group_account_manager') or self.env.user.has_group('account.group_account_user'):
+            pass
+        else:
+            if self.state in ['open', 'paid'] and vals.get('shop_id'):
+                raise UserError(_('Billing User doesnt have this Shop access.'))
+        return super(AccountInvoice, self).write(vals)
+
+
 #     # overridden this method to deduct discounted amount from total of invoice
     @api.one
     @api.depends('invoice_line_ids.price_subtotal', 'tax_line_ids.amount',
